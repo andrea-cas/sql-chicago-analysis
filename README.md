@@ -64,38 +64,38 @@ The following SQL queries are included in the analysis:
    
 `SELECT COUNT(*) FROM CRIME_DATA;`
 
-3. Community areas with per capita income less than 11,000
+2. Community areas with per capita income less than 11,000
    
 `SELECT COMMUNITY_AREA_NUMBER, COMMUNITY_AREA_NAME, PER_CAPITA_INCOME FROM CENSUS_DATA WHERE PER_CAPITA_INCOME < 11000;`
 
-5. Case numbers for crimes involving minors
+3. Case numbers for crimes involving minors
    
 `SELECT * FROM CRIME_DATA WHERE DESCRIPTION LIKE "%MINOR%";`
 
-7. Kidnapping crimes involving a child
+4. Kidnapping crimes involving a child
    
 `SELECT * FROM CRIME_DATA WHERE IUCR BETWEEN 1790 AND 1792;`
 
-9. Crimes recorded at schools
+5. Crimes recorded at schools
     
 `SELECT * FROM CRIME_DATA WHERE LOCATION_DESCRIPTION LIKE "%SCHOOL%" GROUP BY IUCR;`
 
-11. Average safety score for each type of school
+6. Average safety score for each type of school
     
 `SELECT "Elementary, Middle, or High School", AVG(SAFETY_SCORE) AS Avg_Safety_Score FROM PUBLIC_SCHOOLS GROUP BY "Elementary, Middle, or High School";`
 
-13. Community areas with highest % of households below poverty line
+7. Community areas with highest % of households below poverty line
     
 `SELECT COMMUNITY_AREA_NAME, PERCENT_HOUSEHOLDS_BELOW_POVERTY FROM CENSUS_DATA GROUP BY COMMUNITY_AREA_NAME ORDER BY PERCENT_HOUSEHOLDS_BELOW_POVERTY DESC LIMIT 5;`
 
-15. Most crime-prone community area
+8. Most crime-prone community area
     
 `SELECT COMMUNITY_AREA_NUMBER, COUNT(CASE_NUMBER) AS NUMBER_OF_CASES FROM CRIME_DATA WHERE COMMUNITY_AREA_NUMBER IS NOT NULL GROUP BY COMMUNITY_AREA_NUMBER ORDER BY NUMBER_OF_CASES DESC LIMIT 10;`
 
-17. Community area with highest hardship index
+9. Community area with highest hardship index
     
 `SELECT COMMUNITY_AREA_NAME, HARDSHIP_INDEX FROM CENSUS_DATA WHERE HARDSHIP_INDEX = (SELECT MAX(HARDSHIP_INDEX) FROM CENSUS_DATA);`
 
-19. Community Area Name with most number of crimes
+10. Community Area Name with most number of crimes
     
 `SELECT COMMUNITY_AREA_NAME, COUNT(CASE_NUMBER) AS NUMBER_OF_CASES FROM CENSUS_DATA CD, CRIME_DATA CCD WHERE CD.COMMUNITY_AREA_NUMBER = CCD.COMMUNITY_AREA_NUMBER GROUP BY COMMUNITY_AREA_NAME ORDER BY NUMBER_OF_CASES DESC LIMIT 1;`
