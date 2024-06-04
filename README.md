@@ -1,10 +1,11 @@
 # Chicago Data Analysis Project
 
-This project involves analyzing various datasets related to Chicago, including census data, public school data, and crime data. The analysis is performed using SQLite and includes several SQL queries to extract valuable insights from the data.
+This project involves exploring various datasets related to Chicago, including census data, public school data, and crime data. The analysis is performed using SQLite and includes several SQL queries to extract valuable insights from the data.
 
 ## Dataset Information
 
 1. **Socioeconomic Indicators in Chicago**
+   
 This dataset contains a selection of six socioeconomic indicators of public health significance and a “hardship index,” for each Chicago community area, for the years 2008 – 2012.
 
 Source: [Chicago Data Portal](https://data.cityofchicago.org/Health-Human-Services/Census-Data-Selected-socioeconomic-indicators-in-C/kn9c-c2s2)
@@ -60,31 +61,41 @@ Execute the cells in the notebook to run the SQL queries and analyze the data.
 The following SQL queries are included in the analysis:
 
 1. Total number of crimes recorded
+   
 `SELECT COUNT(*) FROM CRIME_DATA;`
 
-2. Community areas with per capita income less than 11,000
+3. Community areas with per capita income less than 11,000
+   
 `SELECT COMMUNITY_AREA_NUMBER, COMMUNITY_AREA_NAME, PER_CAPITA_INCOME FROM CENSUS_DATA WHERE PER_CAPITA_INCOME < 11000;`
 
-3. Case numbers for crimes involving minors
+5. Case numbers for crimes involving minors
+   
 `SELECT * FROM CRIME_DATA WHERE DESCRIPTION LIKE "%MINOR%";`
 
-4. Kidnapping crimes involving a child
+7. Kidnapping crimes involving a child
+   
 `SELECT * FROM CRIME_DATA WHERE IUCR BETWEEN 1790 AND 1792;`
 
-5. Crimes recorded at schools
+9. Crimes recorded at schools
+    
 `SELECT * FROM CRIME_DATA WHERE LOCATION_DESCRIPTION LIKE "%SCHOOL%" GROUP BY IUCR;`
 
-6. Average safety score for each type of school
+11. Average safety score for each type of school
+    
 `SELECT "Elementary, Middle, or High School", AVG(SAFETY_SCORE) AS Avg_Safety_Score FROM PUBLIC_SCHOOLS GROUP BY "Elementary, Middle, or High School";`
 
-7. Community areas with highest % of households below poverty line
+13. Community areas with highest % of households below poverty line
+    
 `SELECT COMMUNITY_AREA_NAME, PERCENT_HOUSEHOLDS_BELOW_POVERTY FROM CENSUS_DATA GROUP BY COMMUNITY_AREA_NAME ORDER BY PERCENT_HOUSEHOLDS_BELOW_POVERTY DESC LIMIT 5;`
 
-8. Most crime-prone community area
+15. Most crime-prone community area
+    
 `SELECT COMMUNITY_AREA_NUMBER, COUNT(CASE_NUMBER) AS NUMBER_OF_CASES FROM CRIME_DATA WHERE COMMUNITY_AREA_NUMBER IS NOT NULL GROUP BY COMMUNITY_AREA_NUMBER ORDER BY NUMBER_OF_CASES DESC LIMIT 10;`
 
-9. Community area with highest hardship index
+17. Community area with highest hardship index
+    
 `SELECT COMMUNITY_AREA_NAME, HARDSHIP_INDEX FROM CENSUS_DATA WHERE HARDSHIP_INDEX = (SELECT MAX(HARDSHIP_INDEX) FROM CENSUS_DATA);`
 
-10. Community Area Name with most number of crimes
+19. Community Area Name with most number of crimes
+    
 `SELECT COMMUNITY_AREA_NAME, COUNT(CASE_NUMBER) AS NUMBER_OF_CASES FROM CENSUS_DATA CD, CRIME_DATA CCD WHERE CD.COMMUNITY_AREA_NUMBER = CCD.COMMUNITY_AREA_NUMBER GROUP BY COMMUNITY_AREA_NAME ORDER BY NUMBER_OF_CASES DESC LIMIT 1;`
