@@ -1,6 +1,6 @@
 # Chicago Data Analysis Project
 
-This project involves exploring various datasets related to Chicago, including census data, public school data, and crime data. The analysis is performed using SQLite and includes several SQL queries to extract valuable insights from the data.
+This project focuses on exploring and analyzing diverse datasets related to Chicago, encompassing census data, public school data, and crime data. The primary objective is to practice and enhance SQL querying skills to extract specific information and derive meaningful insights from the data.
 
 ## Dataset Information
 
